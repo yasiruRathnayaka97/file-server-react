@@ -1,25 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import SignIn from './Views/Sign/SignIn';
+import SignUp from './Views/Sign/SignUp';
+import Upload from './Views/Upload/Upload';
+import Template from './Template/Template';
+import Files from './Views/Files/Files';
+import Grid from '@material-ui/core/Grid';
+import { signInAction,fileAction} from "./Actions";
+import { useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 function App() {
+  var dispatch=useDispatch();
+  var jwt=window.sessionStorage.getItem("jwt");
+  if(jwt!=='null'){
+    var email=window.sessionStorage.getItem("email");
+    dispatch(signInAction('',jwt)) 
+    dispatch(fileAction(email,'',[{"child":email,"childName":""}]))
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid >
+      <Router>
+      <Template/>
+      <Switch> 
+          <Route path="/login">
+            <SignIn/>
+          </Route>
+          <Route path="/upload">
+            <Upload/>
+          </Route>
+          <Route path="/files">
+            <Files/>
+          </Route>
+          <Route path="/register">
+            <SignUp/>
+          </Route>
+          <Route path="/">
+             <SignIn />
+         </Route>
+        </Switch>
+      </Router>
+    </Grid>
+      
+    
   );
 }
 
