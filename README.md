@@ -1,5 +1,5 @@
 # About
-Internship assignment.File manager 
+Internship assignment.Simple file sever.
 
 # Technology stack:
 
