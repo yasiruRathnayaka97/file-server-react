@@ -1,4 +1,4 @@
-# about
+# About
 Internship assignment.File manager 
 
 # Technology stack:
